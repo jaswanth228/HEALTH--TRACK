@@ -1,0 +1,987 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HealthTrack</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f9f9;
+            color: #333;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            background: #078b83;
+            color: white;
+            padding: 18px 8%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav h1 {
+            font-size: 28px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            color: #d5ffff;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 480px;
+
+            background:
+            linear-gradient(
+                rgba(0, 120, 115, 0.75),
+                rgba(0, 120, 115, 0.75)
+            ),
+            url("https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1400&q=80");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            color: white;
+            padding: 30px;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h2 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 19px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: white;
+            color: #078b83;
+
+            padding: 13px 28px;
+            border-radius: 30px;
+
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #dffffd;
+        }
+
+        /* COMMON */
+
+        .section {
+            padding: 60px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            color: #087f79;
+            font-size: 35px;
+        }
+
+        .section-title p {
+            margin-top: 10px;
+            color: #666;
+        }
+
+        /* DASHBOARD */
+
+        .dashboard {
+            display: grid;
+            grid-template-columns:
+            repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+
+            text-align: center;
+
+            box-shadow:
+            0 5px 20px rgba(0,0,0,0.08);
+
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        .icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #087f79;
+            margin-bottom: 10px;
+        }
+
+        .number {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* BUTTONS */
+
+        .small-btn {
+            margin-top: 15px;
+
+            padding: 8px 18px;
+
+            border: none;
+            border-radius: 20px;
+
+            background: #078b83;
+            color: white;
+
+            cursor: pointer;
+        }
+
+        .small-btn:hover {
+            background: #056d68;
+        }
+
+        /* FEATURES */
+
+        .features {
+            display: grid;
+            grid-template-columns:
+            repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+
+            box-shadow:
+            0 5px 20px rgba(0,0,0,0.08);
+
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.03);
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .feature-content {
+            padding: 22px;
+        }
+
+        .feature-content h3 {
+            color: #087f79;
+            margin-bottom: 10px;
+        }
+
+        .feature-content p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* PROGRESS */
+
+        .progress-box {
+            background: white;
+            padding: 25px;
+
+            border-radius: 15px;
+            margin-bottom: 20px;
+
+            box-shadow:
+            0 5px 20px rgba(0,0,0,0.07);
+        }
+
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .progress {
+            height: 12px;
+            background: #ddd;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+
+            background: #0b9b91;
+
+            border-radius: 20px;
+
+            transition: 0.5s;
+        }
+
+        /* TIPS */
+
+        .tips {
+            background: #e5f7f5;
+        }
+
+        .tip-list {
+            display: grid;
+
+            grid-template-columns:
+            repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 20px;
+        }
+
+        .tip {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .tip h3 {
+            color: #087f79;
+            margin-bottom: 10px;
+        }
+
+        .tip p {
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* MESSAGE */
+
+        #message {
+            text-align: center;
+            margin-top: 25px;
+
+            color: #087f79;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #076c67;
+            color: white;
+
+            text-align: center;
+            padding: 30px;
+        }
+
+        footer p {
+            margin-top: 8px;
+        }
+
+        /* MOBILE */
+
+        @media(max-width: 700px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 35px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <h1>❤️ HealthTrack</h1>
+
+    <ul>
+
+        <li>
+            <a href="#home">Home</a>
+        </li>
+
+        <li>
+            <a href="#dashboard">Dashboard</a>
+        </li>
+
+        <li>
+            <a href="#health">Health</a>
+        </li>
+
+        <li>
+            <a href="#tips">Tips</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h2>Track Your Health</h2>
+
+        <p>
+            Monitor your daily water intake,
+            steps, exercise and sleep in one
+            simple health dashboard.
+        </p>
+
+        <a href="#dashboard" class="btn">
+            View Dashboard
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section class="section" id="dashboard">
+
+    <div class="section-title">
+
+        <h2>Health Dashboard</h2>
+
+        <p>Track your daily activities</p>
+
+    </div>
+
+
+    <div class="dashboard">
+
+
+        <!-- WATER -->
+
+        <div class="card">
+
+            <div class="icon">💧</div>
+
+            <h3>Water</h3>
+
+            <div class="number" id="waterValue">
+                1.8 L
+            </div>
+
+            <p>Daily Goal: 2.5 L</p>
+
+            <button
+                class="small-btn"
+                onclick="addWater()">
+
+                + Add Water
+
+            </button>
+
+        </div>
+
+
+        <!-- STEPS -->
+
+        <div class="card">
+
+            <div class="icon">🏃</div>
+
+            <h3>Steps</h3>
+
+            <div class="number" id="stepValue">
+                7850
+            </div>
+
+            <p>Daily Goal: 10000</p>
+
+            <button
+                class="small-btn"
+                onclick="addSteps()">
+
+                + 500 Steps
+
+            </button>
+
+        </div>
+
+
+        <!-- SLEEP -->
+
+        <div class="card">
+
+            <div class="icon">😴</div>
+
+            <h3>Sleep</h3>
+
+            <div class="number" id="sleepValue">
+                7.5 Hrs
+            </div>
+
+            <p>Recommended Rest</p>
+
+            <button
+                class="small-btn"
+                onclick="addSleep()">
+
+                + 30 Min
+
+            </button>
+
+        </div>
+
+
+        <!-- HEART -->
+
+        <div class="card">
+
+            <div class="icon">❤️</div>
+
+            <h3>Heart Rate</h3>
+
+            <div class="number" id="heartRate">
+                72
+            </div>
+
+            <p>BPM</p>
+
+            <button
+                class="small-btn"
+                onclick="checkHeartRate()">
+
+                Check
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div id="message"></div>
+
+</section>
+
+
+<!-- HEALTH ACTIVITIES -->
+
+<section class="section" id="health">
+
+    <div class="section-title">
+
+        <h2>Health Activities</h2>
+
+        <p>Build healthy daily habits</p>
+
+    </div>
+
+
+    <div class="features">
+
+
+        <div class="feature-card">
+
+            <img
+            src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=700&q=80">
+
+            <div class="feature-content">
+
+                <h3>🏃 Daily Exercise</h3>
+
+                <p>
+                    Regular physical activity can
+                    help you maintain fitness and
+                    overall well-being.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <img
+            src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=700&q=80">
+
+            <div class="feature-content">
+
+                <h3>🥗 Healthy Food</h3>
+
+                <p>
+                    Choose a variety of nutritious
+                    foods as part of a balanced diet.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <img
+            src="https://images.unsplash.com/photo-1511295742362-92c96b1cf484?auto=format&fit=crop&w=700&q=80">
+
+            <div class="feature-content">
+
+                <h3>😴 Good Sleep</h3>
+
+                <p>
+                    A regular sleep routine helps
+                    your body and mind get enough rest.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROGRESS -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>Daily Progress</h2>
+
+        <p>Your current health goals</p>
+
+    </div>
+
+
+    <!-- WATER PROGRESS -->
+
+    <div class="progress-box">
+
+        <div class="progress-title">
+
+            <span>💧 Water Intake</span>
+
+            <span id="waterPercent">
+                72%
+            </span>
+
+        </div>
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="waterProgress">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- STEPS PROGRESS -->
+
+    <div class="progress-box">
+
+        <div class="progress-title">
+
+            <span>🏃 Steps</span>
+
+            <span id="stepPercent">
+                78%
+            </span>
+
+        </div>
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="stepProgress">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SLEEP PROGRESS -->
+
+    <div class="progress-box">
+
+        <div class="progress-title">
+
+            <span>😴 Sleep</span>
+
+            <span id="sleepPercent">
+                94%
+            </span>
+
+        </div>
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="sleepProgress">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- HEALTH TIPS -->
+
+<section class="section tips" id="tips">
+
+    <div class="section-title">
+
+        <h2>Healthy Lifestyle Tips</h2>
+
+        <p>Simple habits for everyday wellness</p>
+
+    </div>
+
+
+    <div class="tip-list">
+
+
+        <div class="tip">
+
+            <h3>💧 Stay Hydrated</h3>
+
+            <p>
+                Drink water regularly throughout
+                the day and stay hydrated.
+            </p>
+
+        </div>
+
+
+        <div class="tip">
+
+            <h3>🥗 Eat Balanced Meals</h3>
+
+            <p>
+                Include different nutritious foods
+                in your daily meals.
+            </p>
+
+        </div>
+
+
+        <div class="tip">
+
+            <h3>🏃 Stay Active</h3>
+
+            <p>
+                Choose physical activities that
+                are appropriate and enjoyable for you.
+            </p>
+
+        </div>
+
+
+        <div class="tip">
+
+            <h3>😴 Sleep Well</h3>
+
+            <p>
+                Keep a consistent sleep schedule
+                and allow enough time for rest.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h2>❤️ HealthTrack</h2>
+
+    <p>Your simple health tracking website</p>
+
+    <p>© 2026 HealthTrack</p>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+    /* VARIABLES */
+
+    let water = 1.8;
+
+    let steps = 7850;
+
+    let sleep = 7.5;
+
+
+    /* WATER FUNCTION */
+
+    function addWater() {
+
+        if (water < 2.5) {
+
+            water += 0.2;
+
+            if (water > 2.5) {
+                water = 2.5;
+            }
+
+            document.getElementById("waterValue")
+                .innerText =
+                water.toFixed(1) + " L";
+
+            updateProgress();
+
+            showMessage("💧 Water added successfully!");
+
+        }
+
+        else {
+
+            showMessage("🎉 Daily water goal completed!");
+
+        }
+
+    }
+
+
+    /* STEPS FUNCTION */
+
+    function addSteps() {
+
+        steps += 500;
+
+        if (steps > 10000) {
+            steps = 10000;
+        }
+
+        document.getElementById("stepValue")
+            .innerText = steps;
+
+        updateProgress();
+
+        showMessage("🏃 Steps updated!");
+
+    }
+
+
+    /* SLEEP FUNCTION */
+
+    function addSleep() {
+
+        sleep += 0.5;
+
+        if (sleep > 8) {
+            sleep = 8;
+        }
+
+        document.getElementById("sleepValue")
+            .innerText =
+            sleep.toFixed(1) + " Hrs";
+
+        updateProgress();
+
+        showMessage("😴 Sleep time updated!");
+
+    }
+
+
+    /* HEART RATE */
+
+    function checkHeartRate() {
+
+        let rate =
+            Math.floor(Math.random() * 20) + 65;
+
+        document.getElementById("heartRate")
+            .innerText = rate;
+
+        if (rate >= 60 && rate <= 100) {
+
+            showMessage(
+                "❤️ Heart rate reading: " +
+                rate +
+                " BPM"
+            );
+
+        }
+
+    }
+
+
+    /* UPDATE PROGRESS */
+
+    function updateProgress() {
+
+        let waterPercentage =
+            Math.round((water / 2.5) * 100);
+
+        let stepPercentage =
+            Math.round((steps / 10000) * 100);
+
+        let sleepPercentage =
+            Math.round((sleep / 8) * 100);
+
+
+        /* WATER */
+
+        document.getElementById(
+            "waterProgress"
+        ).style.width =
+            waterPercentage + "%";
+
+        document.getElementById(
+            "waterPercent"
+        ).innerText =
+            waterPercentage + "%";
+
+
+        /* STEPS */
+
+        document.getElementById(
+            "stepProgress"
+        ).style.width =
+            stepPercentage + "%";
+
+        document.getElementById(
+            "stepPercent"
+        ).innerText =
+            stepPercentage + "%";
+
+
+        /* SLEEP */
+
+        document.getElementById(
+            "sleepProgress"
+        ).style.width =
+            sleepPercentage + "%";
+
+        document.getElementById(
+            "sleepPercent"
+        ).innerText =
+            sleepPercentage + "%";
+
+    }
+
+
+    /* MESSAGE */
+
+    function showMessage(message) {
+
+        document.getElementById("message")
+            .innerText = message;
+
+        setTimeout(function() {
+
+            document.getElementById("message")
+                .innerText = "";
+
+        }, 2000);
+
+    }
+
+
+    /* INITIAL PROGRESS */
+
+    updateProgress();
+
+</script>
+
+
+</body>
+
+</html>
+```
